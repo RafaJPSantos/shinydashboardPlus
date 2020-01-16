@@ -88,46 +88,7 @@ accordion <- function(..., inputId = NULL) {
 #' @author David Granjon, \email{dgranjon@@ymail.com}
 #'
 #' @export
-accordionItem <- function(..., title = NULL, color = NULL,
-                          collapsed = TRUE) {
-  
-  cl <- "panel box"
-  if (!is.null(color)) cl <- paste0(cl, " box-", color)
-  
-  shiny::tags$div(
-    class = cl,
-    
-    # box header
-    shiny::tags$div(
-      class = "box-header with-border",
-      shiny::tags$h4(
-        class = "box-title",
-        shiny::tags$a(
-          href = NULL,
-          `data-toggle` = "collapse",
-          `data-parent` = NULL,
-          `aria-expanded` = if (isTRUE(collapsed)) "false" else "true",
-          class = if (isTRUE(collapsed)) "collapsed",
-          title
-        )
-      )
-    ),
-    
-    shiny::tags$div(
-      id = NULL,  
-      class = if (isTRUE(collapsed)) {
-        "panel-collapse collapse"
-      } else {
-        "panel-collapse collapse in"
-      },
-      `aria-expanded` = if (isTRUE(collapsed)) "false" else "true",
-      style = if (isTRUE(collapsed)) "height: 0px;" else NULL,
-      shiny::tags$div(class = "box-body", ...)
-    )
-  )
-}
-
-accordionItem2 <- function(..., 
+accordionItem <- function(..., 
                           title = NULL, width.title = NULL, 
                           value = NULL, width.value = NULL, 
                           ref = NULL, width.ref = NULL,
