@@ -76,7 +76,6 @@ accordion <- function(..., inputId = NULL) {
   
 }
 
-
 #' @title AdminLTE2 accordion item
 #'
 #' @description Create an accordion item to put inside an accordion container
@@ -89,7 +88,7 @@ accordion <- function(..., inputId = NULL) {
 #' @author David Granjon, \email{dgranjon@@ymail.com}
 #'
 #' @export
-accordionItem <- function(..., title = NULL, text=NULL, color = NULL, icon = NULL,
+accordionItem <- function(..., title = NULL, color = NULL,
                           collapsed = TRUE) {
   
   cl <- "panel box"
@@ -109,8 +108,58 @@ accordionItem <- function(..., title = NULL, text=NULL, color = NULL, icon = NUL
           `data-parent` = NULL,
           `aria-expanded` = if (isTRUE(collapsed)) "false" else "true",
           class = if (isTRUE(collapsed)) "collapsed",
-          title,
-          shiny::tags$span(class = paste0("pull-right", " text-", color), text, shiny::tags$i(class = icon))
+          title
+        )
+      )
+    ),
+    
+    shiny::tags$div(
+      id = NULL,  
+      class = if (isTRUE(collapsed)) {
+        "panel-collapse collapse"
+      } else {
+        "panel-collapse collapse in"
+      },
+      `aria-expanded` = if (isTRUE(collapsed)) "false" else "true",
+      style = if (isTRUE(collapsed)) "height: 0px;" else NULL,
+      shiny::tags$div(class = "box-body", ...)
+    )
+  )
+}
+
+accordionItem2 <- function(..., 
+                          title = NULL, width.title = NULL, 
+                          value = NULL, width.value = NULL, 
+                          ref = NULL, width.ref = NULL,
+                          unit = NULL,
+                          color = NULL, 
+                          icon = NULL,
+                          collapsed = TRUE) {
+  
+  cl <- "panel box"
+  if (!is.null(color)) cl <- paste0(cl, " box-", color)
+  
+  shiny::tags$div(
+    class = cl,
+    
+    # box header
+    shiny::tags$div(
+      class = "box-header with-border",
+      shiny::tags$h4(
+        class = "box-title",
+        shiny::tags$a(
+          href = NULL,
+          `data-toggle` = "collapse",
+          `data-parent` = NULL,
+          `aria-expanded` = if (isTRUE(collapsed)) "false" else "true",
+          class = if (isTRUE(collapsed)) "collapsed",
+          shiny::tags$div(style = paste0("display: inline-block; width:", width.title), title),
+          shiny::tags$div(style = paste0("display: inline-block; width:", width.value), 
+                          class = paste0("pull-right", " text-", color), value),
+          shiny::tags$div(style = paste0("display: inline-block; width:", width.ref), 
+                          class = paste0("pull-right", " text-", color), ref),
+          shiny::tags$div(style = "display: inline-block;", class = paste0("pull-right", " text-", color), 
+                          unit, shiny::tags$i(class = icon))
         ),
       )
     ),
