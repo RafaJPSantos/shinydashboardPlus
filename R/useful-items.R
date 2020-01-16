@@ -89,7 +89,7 @@ accordion <- function(..., inputId = NULL) {
 #' @author David Granjon, \email{dgranjon@@ymail.com}
 #'
 #' @export
-accordionItem <- function(..., title = NULL, color = NULL,
+accordionItem <- function(..., title = NULL, text=NULL, color = NULL, icon = NULL,
                           collapsed = TRUE) {
   
   cl <- "panel box"
@@ -109,8 +109,9 @@ accordionItem <- function(..., title = NULL, color = NULL,
           `data-parent` = NULL,
           `aria-expanded` = if (isTRUE(collapsed)) "false" else "true",
           class = if (isTRUE(collapsed)) "collapsed",
-          title
-        )
+          title,
+          shiny::tags$span(class = paste0("pull-right", " text-", color), text, shiny::tags$i(class = icon))
+        ),
       )
     ),
     
