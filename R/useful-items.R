@@ -116,10 +116,10 @@ accordionItem <- function(...,
           class = if (isTRUE(collapsed)) "collapsed",
           shiny::tags$div(style = paste0("display: inline-block; width:", width.title), title),
           shiny::tags$div(style = paste0("display: inline-block; width:", width.value), 
-                          class = paste0("pull-right", " text-", color), value),
+                          class = paste0("text-", color), value),
           shiny::tags$div(style = paste0("display: inline-block; width:", width.ref), 
-                          class = paste0("pull-right", " text-", color), ref),
-          shiny::tags$div(style = "display: inline-block;", class = paste0("pull-right", " text-", color), 
+                          class = paste0("text-", color), ref),
+          shiny::tags$div(style = "display: inline-block;", class = paste0("text-", color), 
                           unit, shiny::tags$i(class = icon))
         ),
       )
